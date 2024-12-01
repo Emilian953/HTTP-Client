@@ -1,0 +1,66 @@
+**register**:
+   - Deschid o conexiune la server folosind funcția `open_connection`.
+   - Solicit utilizatorului să introducă un nume de utilizator și o parolă.
+   - Construiesc un payload JSON care conține numele de utilizator și parola, folosind `snprintf`.
+   - Trimit o cerere POST la endpoint-ul `/api/v1/tema/auth/register` folosind funcția `send_post_request_and_print_response`, care include datele de autentificare în payload.
+   - Afișez răspunsul primit de la server, indicând succesul înregistrării sau gestionând erorile (de exemplu, dacă numele de utilizator este deja folosit).
+   - Închid conexiunea folosind funcția `close_connection`.
+
+**login**:
+   - Deschid o conexiune la server folosind funcția `open_connection`.
+   - Solicit utilizatorului să introducă un nume de utilizator și o parolă.
+   - Construiesc un payload JSON cu aceste credențiale folosind `snprintf`.
+   - Trimit o cerere POST la endpoint-ul `/api/v1/tema/auth/login` folosind `send_to_server` și `receive_from_server`.
+   - Verific răspunsul pentru succes și extrag cookie-ul de sesiune folosind funcția `extract_cookie`, pe care îl stochez pentru utilizări viitoare.
+   - Afișez mesajul de succes sau eroare pe baza răspunsului primit.
+   - Închid conexiunea folosind funcția `close_connection`.
+
+**enter_library**:
+   - Deschid o conexiune la server folosind funcția `open_connection`.
+   - Trimit o cerere GET la endpoint-ul `/api/v1/tema/library/access`, folosind cookie-ul de sesiune pentru autentificare.
+   - Verific răspunsul pentru succes și extrag token-ul JWT din răspuns folosind funcția `extract_token`, pe care îl stochez pentru utilizări viitoare.
+   - Afișez mesajul de succes sau eroare pe baza răspunsului primit.
+   - Închid conexiunea folosind funcția `close_connection`.
+
+**get_books**:
+   - Deschid o conexiune la server folosind funcția `open_connection`.
+   - Trimit o cerere GET la endpoint-ul `/api/v1/tema/library/books`, folosind cookie-ul și token-ul pentru autentificare.
+   - Verific răspunsul pentru succes și extrag lista de cărți din răspuns, pe care o afișez.
+   - Afișez mesajul de eroare dacă cererea nu a fost reușită.
+   - Închid conexiunea folosind funcția `close_connection`.
+
+**get_book**:
+   - Solicit utilizatorului să introducă ID-ul cărții.
+   - Deschid o conexiune la server folosind funcția `open_connection`.
+   - Trimit o cerere GET la endpoint-ul `/api/v1/tema/library/books/:bookId`, folosind cookie-ul și token-ul pentru autentificare.
+   - Verific răspunsul pentru succes și extrag detaliile cărții din răspuns, pe care le afișez.
+   - Afișez mesajul de eroare dacă cererea nu a fost reușită.
+   - Închid conexiunea folosind funcția `close_connection`.
+
+**add_book**:
+   - Solicit utilizatorului să introducă detaliile cărții (titlu, autor, gen, editor și număr de pagini).
+   - Construiesc un payload JSON cu aceste date folosind `snprintf`.
+   - Deschid o conexiune la server folosind funcția `open_connection`.
+   - Trimit o cerere POST la endpoint-ul `/api/v1/tema/library/books`, folosind cookie-ul și token-ul pentru autentificare.
+   - Verific răspunsul pentru succes și afișez mesajul corespunzător (de exemplu, cartea a fost adăugată cu succes).
+   - Afișez mesajul de eroare dacă cererea nu a fost reușită.
+   - Închid conexiunea folosind funcția `close_connection`.
+
+**delete_book**:
+   - Solicit utilizatorului să introducă ID-ul cărții.
+   - Deschid o conexiune la server folosind funcția `open_connection`.
+   - Trimit o cerere DELETE la endpoint-ul `/api/v1/tema/library/books/:bookId`, folosind cookie-ul și token-ul pentru autentificare.
+   - Verific răspunsul pentru succes și afișez mesajul corespunzător (de exemplu, cartea a fost ștearsă cu succes).
+   - Afișez mesajul de eroare dacă cererea nu a fost reușită.
+   - Închid conexiunea folosind funcția `close_connection`.
+
+**logout**:
+   - Deschid o conexiune la server folosind funcția `open_connection`.
+   - Trimit o cerere GET la endpoint-ul `/api/v1/tema/auth/logout`, folosind cookie-ul și token-ul pentru autentificare.
+   - Verific răspunsul pentru succes și afișez mesajul corespunzător (de exemplu, delogarea a fost efectuată cu succes).
+   - Eliberez resursele alocate pentru cookie și token, setându-le la NULL.
+   - Închid conexiunea folosind funcția `close_connection`.
+
+**exit**:
+   - Programul se încheie și eliberez resursele alocate pentru cookie și token, dacă există.
+
