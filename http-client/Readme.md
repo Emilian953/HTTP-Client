@@ -1,4 +1,4 @@
-# PCom Homework #4
+
 
 This repository contains starter scripts for the PCom HTTP client assignment.
 
