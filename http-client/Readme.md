@@ -1,7 +1,3 @@
-
-
-This repository contains starter scripts for the PCom HTTP client assignment.
-
 ## Checker
 
 Dependencies:
